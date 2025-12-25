@@ -18,6 +18,10 @@ import states.TitleState;
 import lime.graphics.Image;
 #end
 
+#if mobile
+import mobile.util.StorageSystem;
+#end
+
 //crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
@@ -58,14 +62,14 @@ class Main extends Sprite
 		super();
 
 		#if mobile
-		/*MobileUtil.getPermissions();
-		Sys.setCwd(haxe.io.Path.addTrailingSlash(MobileUtil.getDirectory()));
+		//MobileUtil.getPermissions();
+		Sys.setCwd(StorageSystem.getStorageDirectory());
 
-		if (!MobileUtil.areAssetsCopied("assets/"))
-			MobileUtil.copyAssetsFromAPK("assets/");
+		//if (!MobileUtil.areAssetsCopied("assets/"))
+			//MobileUtil.copyAssetsFromAPK("assets/");
 
-		if (!MobileUtil.areAssetsCopied("assets/videos/"))
-			MobileUtil.copyAssetsFromAPK("assets/videos/");*/
+		//if (!MobileUtil.areAssetsCopied("assets/videos/"))
+	        //MobileUtil.copyAssetsFromAPK("assets/videos/");
 		#end
 
 		if (stage != null)
@@ -90,6 +94,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+		#if !mobile
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -101,6 +106,7 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		#end
 	
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
