@@ -109,6 +109,8 @@
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 
+	 <haxelib name="extension-androidtools" if="mobile"/>
+
 		<!-- Mobile Shit -->
 <section if="android">
     <config:android permission="android.permission.MANAGE_MEDIA"/> 

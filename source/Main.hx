@@ -61,11 +61,15 @@ class Main extends Sprite
 	{
 		super();
 
-		// Credits to MAJigsaw77 (he's the og author for this code)
-		#if android
-		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
-		#elseif ios
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
+		#if mobile
+		MobileUtil.getPermissions();
+		Sys.setCwd(haxe.io.Path.addTrailingSlash(MobileUtil.getDirectory()));
+
+		if (!MobileUtil.areAssetsCopied("assets/"))
+			MobileUtil.copyAssetsFromAPK("assets/");
+
+		if (!MobileUtil.areAssetsCopied("assets/videos/"))
+			MobileUtil.copyAssetsFromAPK("assets/videos/");
 		#end
 
 		if (stage != null)
