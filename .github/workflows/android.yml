@@ -24,8 +24,6 @@ jobs:
             .haxelib/
             export/release/android/haxe/
             export/release/android/obj/
-      - run: |
-          echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
 
       - name: Install Libraries
         run: |
