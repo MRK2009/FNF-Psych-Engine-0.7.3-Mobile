@@ -36,10 +36,8 @@
     },
     {
       "name": "hxCodec",
-      "type": "gif",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/Idklel01/hxCodec"
+      "type": "haxelib",
+      "version": "2.6.1"
     },
     {
       "name": "tjson",
