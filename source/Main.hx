@@ -121,6 +121,10 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
+
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
@@ -164,7 +168,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = #if mobile StorageSystem.getDirectory() + #else "./" + #end "crash/" + "PsychEngine_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -179,15 +183,19 @@ class Main extends Sprite
 
 		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
 
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
+		if (!FileSystem.exists(#if mobile StorageSystem.getDirectory() + #else "./" + #end "crash/"))
+			FileSystem.createDirectory(#if mobile StorageSystem.getDirectory() + #else "./" + #end "crash/");
 
 		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
+		#if android
+		extension.androidtools.Tools.showAlertDialog("Error!", errMsg, {name: "OK", func: null}, null);
+		#else
 		Application.current.window.alert(errMsg, "Error!");
+		#end
 		#if DISCORD_ALLOWED
 		DiscordClient.shutdown();
 		#end
