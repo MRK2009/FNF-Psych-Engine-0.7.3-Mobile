@@ -109,10 +109,10 @@
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 
-	 <haxelib name="extension-androidtools" if="mobile"/>
+	 <haxelib name="extension-androidtools" if="android"/>
 
-		<!-- Mobile Shit -->
-<section if="android">
+	<!-- Mobile Shit -->
+    <section if="android">
     <config:android permission="android.permission.MANAGE_MEDIA"/> 
 	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -127,8 +127,8 @@
 	<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
 	<android target-sdk-version="34" />
 	<android min-sdk-version="19" />
-	<!--certificate path="psych-keystore.keystore" password="psychmobile" alias="psychmobile" alias-password="psychmobile" unless="test"/--> <!--olha cream quando for por isso ja deixe meu test em paz, dnd-->
-</section>
+	<certificate path="key.keystore" password="psychport" alias="psychport" alias-password="psychport" unless="test" />
+    </section>
 	
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
